@@ -14,7 +14,7 @@ public class gim2mickOpenHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String CREATE_USER_TABLE ="create table userTABLE (_id integer primary key, User text, Password text, Name text);";
     private static final String CREATE_FOOD_TABLE ="create table foodTABLE (_id integer primary key, Food text, Source text, Price text);";
-    //private static final String CREATE_ORDER_TABLE ="create table orderTABLE (_id integer primary key, Officer text, Desk text, Food text, Item text);";
+    private static final String CREATE_ORDER_TABLE ="create table orderTABLE (_id integer primary key, Officer text, Desk text, Food text, Item text);";
 
     public gim2mickOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -24,7 +24,7 @@ public class gim2mickOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(CREATE_USER_TABLE);
         sqLiteDatabase.execSQL(CREATE_FOOD_TABLE);
-        //sqLiteDatabase.execSQL(CREATE_ORDER_TABLE);
+        sqLiteDatabase.execSQL(CREATE_ORDER_TABLE);
     }
 
     @Override

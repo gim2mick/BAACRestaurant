@@ -8,6 +8,7 @@ public class MainActivity extends AppCompatActivity {
     //Explicit
     private UserTABLE objUserTABLE;
     private FoodTABLE objFoodTABLE;
+    private OrderTABLE objOrderTABLE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +27,16 @@ public class MainActivity extends AppCompatActivity {
 
         objUserTABLE =new UserTABLE(this);
         objFoodTABLE = new FoodTABLE(this);
+        objOrderTABLE = new OrderTABLE(this);
+
     }// Create & Connect Database
 
     private void testAddValue() {
 
-        objUserTABLE.addNewUser("testUser","testPassword","testName");
-        objFoodTABLE.addNewFood("testFood","testSource","testPrice");
+        //objUserTABLE.addNewUser("testUser","testPassword","testName");
+        //objFoodTABLE.addNewFood("testFood","testSource","testPrice");
+        objOrderTABLE.addOrder("testOfficer","testDesk","testFood","testItem");
+
     } //test Add value
 
 }   //Main Class
