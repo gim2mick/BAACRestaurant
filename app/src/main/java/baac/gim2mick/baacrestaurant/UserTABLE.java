@@ -12,11 +12,11 @@ public class UserTABLE {
     private gim2mickOpenHelper objGim2mickOpenHelper;
     private SQLiteDatabase writeSqLiteDatabase, readSqLiteDatabase;
 
-    public static final String USER_TABLE ="userTABLE";
-    public static final String COLUMN_ID_USER ="_id";
-    public static final String COLUMN_USER_USER ="User";
-    public static final String COLUMN_PASSWORD_USER ="Password";
-    public static final String COLUMN_NAME_USER ="Name";
+    //public static final String USER_TABLE ="userTABLE";
+    //public static final String COLUMN_ID_USER ="_id";
+    //public static final String COLUMN_USER_USER ="User";
+    //public static final String COLUMN_PASSWORD_USER ="Password";
+    //public static final String COLUMN_NAME_USER ="Name";
 
     public UserTABLE(Context context) {
         objGim2mickOpenHelper = new gim2mickOpenHelper(context);
