@@ -21,9 +21,11 @@ public class OrderTABLE {
     public static final String COLUMN_ITEM ="Item";
 
     public OrderTABLE(Context context) {
+
         objGim2mickOpenHelper = new gim2mickOpenHelper(context);
         writeSqLiteDatabase = objGim2mickOpenHelper.getWritableDatabase();
         readSqLiteDatabase = objGim2mickOpenHelper.getReadableDatabase();
+
     }//Constructor
 
     public long addOrder(String strOfficer, String strDesk, String strFood, String strItem) {
