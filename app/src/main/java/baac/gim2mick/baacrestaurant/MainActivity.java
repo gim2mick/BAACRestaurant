@@ -1,10 +1,16 @@
 package baac.gim2mick.baacrestaurant;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
@@ -32,13 +38,19 @@ public class MainActivity extends AppCompatActivity {
     //Explicit
     private UserTABLE objUserTABLE;
     private FoodTABLE objFoodTABLE;
-    //private OrderTABLE objOrderTABLE;
+    private OrderTABLE objOrderTABLE;
+
+    private EditText userEditText, passwordEditText;
+    private String userString, passwordString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Bind Widget
+        bindWidget();
 
         // Create & Connect Database
         createAndConnected();
@@ -49,10 +61,74 @@ public class MainActivity extends AppCompatActivity {
         //Delete All SQLite
         deleteAllSQLite();
 
-        //Synchronice JSON to SQLite
+        //Sync JSON to SQLite
         synJSONtoSQLite();
 
     }   //Main Method
+
+    private void bindWidget() {
+        userEditText = (EditText) findViewById(R.id.editText);
+        passwordEditText = (EditText) findViewById(R.id.editText2);
+    }
+
+    public void clickLogin(View view) {
+        userString = userEditText.getText().toString().trim();
+        passwordString = passwordEditText.getText().toString().trim();
+
+        if (userString.equals("") || passwordString.equals("") ) {
+
+            //Have Space
+            errorDialog("Have Space","Please Fill All Every Blank");
+
+        } else {
+
+            //No Space
+            checkUser();
+
+        }
+    }
+
+    private void checkUser() {
+
+        try {
+
+            String[] strMyResult = objUserTABLE.searchUser(userString);
+
+            if (passwordString.equals(strMyResult[2])) {
+
+                Toast.makeText(MainActivity.this,"Welcome "+ strMyResult[3],Toast.LENGTH_LONG).show();
+
+                //Intent to Order Activity
+                Intent objIntent = new Intent(MainActivity.this,OrderActivity.class);
+                objIntent.putExtra("Name", strMyResult[3]);
+                startActivity(objIntent);
+                finish();//pause main page. if you press undo you must login again
+
+            } else {
+                errorDialog("Password False","Please Try Again Password");
+            }
+
+        } catch (Exception e) {
+            errorDialog("No This User","No "+ userString+" on my Database");
+        }
+
+    }
+
+    private void errorDialog(String strTitle, String strMessage) {
+
+        AlertDialog.Builder objBuilder = new AlertDialog.Builder(this);
+        objBuilder.setIcon(R.drawable.danger);
+        objBuilder.setTitle(strTitle);
+        objBuilder.setMessage(strMessage);
+        objBuilder.setCancelable(false);
+        objBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        objBuilder.show();
+    }
 
     private void synJSONtoSQLite() {
 
