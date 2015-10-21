@@ -19,7 +19,7 @@ public class gim2mickAdapter extends BaseAdapter {
     private Context objContext;
     private String[] foodStrings, sourceStrings, priceStrings;
 
-    public gim2mickAdapter(Context objContext, String[] sourceStrings, String[] foodStrings, String[] priceStrings) {
+    public gim2mickAdapter(Context objContext,  String[] foodStrings, String[] sourceStrings, String[] priceStrings) {
         this.objContext = objContext;
         this.foodStrings = foodStrings;
         this.sourceStrings = sourceStrings;
